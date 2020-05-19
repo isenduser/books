@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/book-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/book-manager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/book-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/customer-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-consumer/src/main/java/com/cssl/alipay/AlipayConfig.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/order-provider/src/main/java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

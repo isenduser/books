@@ -1,0 +1,60 @@
+server:
+  port: 8002
+
+spring:
+  thymeleaf:
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面(要重启)
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    #password: 123456
+    database: 0
+    timeout: 10s
+    jedis:
+      pool:
+        max-idle: 50          # 最大空闲连接数
+        min-idle: 10          # 最小空闲连接数
+        max-wait:  -1s        # 等待可用连接的最大时间，负数为不限制
+        max-active: -1        # 最大活跃连接数，负数为不限制
+  mvc:
+    static-path-pattern: /**
+    resources:
+      static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  application:
+    name: book-consumer  #ע�ᵽע�����ĵķ�����
+  cloud:
+    nacos:
+      discovery:
+        server-addr:  127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+      eager: true  #取消控制台懒加载，默认false要刷新请求才会在面板显示
+
+#http://127.0.0.1:8881/actuator/nacos-discovery
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+feign:
+  sentinel:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+
+

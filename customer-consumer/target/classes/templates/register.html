@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit" />
+    <title>欢迎注册6号书店</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css2/register.css}"/>
+</head>
+<body>
+<div id="nav-wrap">
+    <div class="container">
+        <!-- logo -->
+        <div class="logo">
+            <a href="#" class="glyphicon glyphicon-plane"></a>
+        </div>
+        <!-- 搜索框 -->
+        <form class="navbar-form navbar-left" role="search">
+            <input type="text" id="booksearch" placeholder="在这里输入你想找的书籍吧！"/>
+            <button type="button" onclick="search();">搜索</button>
+        </form>
+
+        <!-- end 导航 -->
+        <!-- 用户栏 -->
+        <div class="twoButton navbar-right">
+            <!-- 登陆&注册栏 -->
+            <span>
+                <a class="login btn btn-normal btn-primary" th:href="@{/customerconsumer/dologin}" target="_self">登录</a>
+                <a class="register btn btn-normal btn-success" href="javascript:;" target="_self">注册</a>
+            </span>
+        </div>
+    </div>
+</div>
+<!--内容区-->
+<div id="content_wrapper" class="clearfix">
+    <div class="login-box">
+        <div class="login-shang">
+            <h2 class="logo"><img th:src="@{/img/logo2.png}"/></h2>
+            <h2 class="miaoshu">欢迎注册6号书店！</h2>
+            <form class="form-horizontal" id="zhuceform" action="/customerconsumer/regist" method="post">
+                <div class="form-group">
+                    <label for="phonenumber" class="col-lg-3 control-label">用户名</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="phoneNumber" name="cname" onblur="findName()"  autocomplete="off" placeholder="请输入您的用户名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password1" class="col-lg-3 control-label">密码</label>
+                    <div class="col-lg-9">
+                        <input type="password" class="form-control" id="password1" name="cpassword" placeholder="请输入您的密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="col-lg-3 control-label">确认密码</label>
+                    <div class="col-lg-9">
+                        <input type="password" class="form-control" id="password2" name="cpassword2" placeholder="请确认您的密码">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <hr style="width: 100%;" class="hr_shang"/>
+                    <a href="javascript:;" class="ziliao gengduoziliao">更多资料</a>
+                </div>
+                <!--选择显示的div-->
+                <div id="selectShow" style="display: none;">
+                    <div class="form-group">
+                        <label for="realName" class="col-lg-3 control-label">姓名</label>
+                        <div class="col-lg-9 ">
+                            <input id="realName" name="name" type="text" class="form-control" placeholder="请输入您的真实姓名" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="realName" class="col-lg-3 control-label">手机号码</label>
+                        <div class="col-lg-9 ">
+                            <input id="tel" name="tel" type="text" class="form-control" placeholder="请输入您的手机号码" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nv" class="col-lg-3 control-label">性别</label>
+                        <div class="col-lg-9">
+                            <label class="radio-inline">
+                                <input type="radio"  id="nan" name="sex" value="1" checked="checked">男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  id="nv" name="sex" value="0" >女
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-lg-3 control-label">详细地址</label>
+                        <div class="col-lg-9 ">
+                            <input id="address" name="address" type="text" class="form-control" placeholder="请输入您的详细地址" autocomplete="off">
+                        </div>
+                    </div>
+
+                </div>
+                <!--选择显示的div结束-->
+                <div class="form-group">
+                    <input type="text" class="col-lg-1 form-control" id="yangzhengmatext" placeholder="验证码" autocomplete="off">
+                    <span></span>
+                </div>
+                <!--显示错误的div-->
+                <div id="errormessage">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <em></em>
+                </div>
+                <button type="button" class="btn btn-normal btn-primary" id="zhuce" onclick="customerRegister()">注册</button>
+            </form>
+        </div>
+        <div class="login-xia">
+            <span>现在去登陆吗?</span>&nbsp;&nbsp;
+            <a th:href="@{/customerconsumer/dologin}" target="_self">立即登录</a>
+        </div>
+    </div>
+</div>
+<!--也可以不加~{},但内联时必须要有-->
+<div th:replace="common/frontend/public :: footer"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/register.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+</html>

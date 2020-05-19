@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的订单</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css2/ShoppingCart.css}"/>
+</head>
+<body>
+<div th:replace="common/frontend/public :: #header"></div>
+<div id="logo-search">
+    <div class="logo">
+        <a><img th:src="@{/img/logo.png}" alt="欢迎来到6号书店" /></a>
+    </div>
+    <div class="search">
+        <input type="text" id="booksearch" placeholder="在这里输入你想找的书籍吧！"/>
+        <button type="button" onclick="search();">搜索</button>
+    </div>
+    <div class="dong">
+      		<span>
+      			<marquee onmouseover=this.stop() onmouseout=this.start() scrollamount=5 behavior="scroll">
+				依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！
+				新版《六号隐私政策》已上线，将更有利于保护您的个人隐私。
+				</marquee>
+      		</span>
+    </div>
+</div>
+<p align="center">我的订单</p>
+
+<table id="demo" lay-filter="test"></table>
+<div id="showDetail" class="showContent">
+
+</div>
+
+<div th:replace="common/frontend/public :: footer"></div>
+</body>
+
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+<script src="/layui/layui.all.js"></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+<script type="text/html" id="status">
+{{# if(d.status==='未支付'){}}
+    <input type="hidden" value="{{d.orderId}}"/>
+    <a onclick="toPay()">去支付</a>
+{{# }else{}}
+    <span>已支付</span>
+{{# }}}
+</script>
+<script>
+    function shouhuo(orderId){
+        alert(orderId);
+        $.getJSON("/orderconsumer/shouhuo","oid="+orderId,function(data){
+            if(data==true){
+                window.location.reload();
+            }else{
+                alert("订单确认收货失败！");
+            }
+        });
+    };
+    function setOperate(data) {
+        var oid=data.oid;
+        var orderId = data.orderId;
+        var totalprice=data.totalprice;
+        var status=data.status;
+        var btns = "";
+        if(status=="未支付"){
+            btns += '<a href="/orderconsumer/alipay?orderId='+orderId+'&totalprice='+totalprice+'"'+'>去支付</a>';
+        }else if(status=="已发货"){
+            btns+='<a href="#" onclick="javascript:shouhuo('+oid+')">确认收货</a>';
+        } else if(status=="已收货"){
+            btns+='<span>订单已完成</span>';
+        }else {
+            btns+='<span>待发货</span>';
+        }
+        return btns;
+    };
+
+    function toShoppingCart(user){
+        alert(user);
+        if(user==null){
+            layer.open({
+                type:0,
+                title:"系统提示",
+                content:"登录有就能有辆车了，现在要去登录吗?",
+                btn:["现在就去","给朕退下"],
+                btn1:function(){
+                    //点击现在就去时去登陆页面
+                    window.location.href="/customerconsumer/dologin";
+                }
+            });
+        }else{
+            alert("true");
+            window.location.href="/orderconsumer/toShoppingCart";
+        }
+
+    };
+    layui.use(['table','util'], function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '/orderconsumer/getOrders' //数据接口
+            ,page: true //开启分页
+            ,cols:
+                [
+                    [
+                        {field: 'orderId', title: '订单编号',  sort: true, fixed: 'left'}
+                        ,{field: 'rname', title: '用户名' }
+                        ,{field: 'rphone', title: '电话',  sort: true}
+                        ,{field: 'raddress', title: '收货地址'}
+                        ,{field: 'totalprice', title: '总价',  sort: true}
+                        ,{field: 'ocount', title: '订购数量',  sort: true}
+                        ,{field: 'orderDate', title: '下单时间',  sort:true}
+                        ,{field: 'status', title: '订单状态',  sort:true}
+                        ,{title:'操作', width: 165,templet:setOperate, align:'center',fixed:'right'}
+                    ]
+                ]
+        });
+
+
+
+        //监听行单击事件
+        table.on('row(test)', function(obj){
+            console.log(obj.tr) //得到当前行元素对象
+            console.log(obj.data) //得到当前行数据
+            var oid=obj.data.oid;
+            $.getJSON("/orderconsumer/queryOrderDetail","oid="+oid,function(data){
+                $("#showDetail").html("");
+                var html="<p align='center'>订单详情</p><ul>";
+                for(var i=0;i<data.length;i++){
+                    html+="<li>\n"+
+                        "<a href='/bookconsumer/showBookDetails?bid"+data[i].books.bid+"'>\n" +
+                        "<img style='width: 200px' src='"+data[i].books.picPath+"'/></a>\n" +
+                        "<a href='/bookconsumer/showBookDetails?bid"+data[i].books.bid+"' class='jianjie'>"+data[i].books.bname+"</a>\n" +
+                        " <h4>订购数量:"+data[i].amount+"</h4>\n" +
+                        "<h4>总金额:￥"+data[i].dprice+"</h4>"+
+                        " </li>";
+                }
+                html+="</ul>";
+                $("#showDetail").html(html);
+            })
+            //obj.del(); //删除当前行
+            //obj.update(fields) //修改当前行数据
+        });
+
+    });
+</script>
+<style>
+    .showContent{
+        width: 1300px;
+        margin: 0 auto;
+        padding: 5px 10px;
+    }
+    .showContent ul{
+        display: flex;
+    }
+    .showContent ul li{
+        height: 300px;
+        margin: 5px 10px;
+        flex: 1;
+        text-align: center;
+        background-color: white;
+        transition:0.3s;
+    }
+    .showContent ul li:hover{
+        box-shadow: gray 0px 0px 20px;
+        transform:scale(1.02);
+    }
+    .showContent ul li a{
+        font: 14px "微软雅黑";
+        color: #666666;
+        text-decoration: none;
+    }
+    .showContent ul .jianjie{
+        display: inline-block;
+        width: 150px;
+        height: 35px;
+        font: 14px/35px "微软雅黑";
+        color: #666666;
+        text-decoration: none;
+        margin-top: 4px;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .showContent ul .jianjie:hover{
+        color: #ee6157;
+    }
+    .showContent ul img{
+        display: block;
+        width: 100%;
+        height: 70%;
+        margin: 0 auto;
+    }
+    .showContent ul h4{
+        font: 900 10px "微软雅黑";
+        color: red;
+        margin-top: 6px;
+    }
+    #logo-search{
+        min-width: 100%;
+        height: 120px;
+        margin-top: 40px;
+        position: relative;
+    }
+    .logo{
+        float:left;
+        margin-left: 200px;
+        margin-top: 0px;
+    }
+    .search{
+        float: right;
+        margin-top: 20px;
+        margin-right: 300px;
+    }
+    .search input{
+        width: 450px;
+        height: 38px;
+        color: #999;
+        font-size: 14px;
+        border: 1px solid #c59544;
+        border-width: 2px 0 2px 2px;
+        cursor: text;
+        /*去掉chorm默认边框*/
+        outline: none;
+        padding:4px;
+    }
+    .search button{
+        height: 41px;
+        width: 82px;
+        margin-left: -5px;
+        background:#c59544;
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-family: "微软雅黑";
+        outline: none;
+    }
+    /*顶部的滚动字体*/
+    #logo-search .dong{
+        width: 1000px;
+        height: 36px;
+        position: absolute;
+        top: 83px;
+        left: 400px;
+        /*background-color: deeppink;*/
+    }
+    #logo-search .dong span{
+        display: block;
+        width: 70%;
+        height: 100%;
+        margin: 0 auto;
+        line-height: 36px;
+    }
+    #logo-search .dong span:hover{
+        color: red;
+        cursor: pointer;
+    }
+</style>
+</html>

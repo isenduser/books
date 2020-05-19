@@ -1,0 +1,124 @@
+.realusertag-wrapper{
+    position: fixed;
+    right:0px;
+    bottom:0px;
+    _position:absolute;
+    _margin-top: 0;
+    _top: expression(eval((document.compatMode&&document.compatMode=="CSS1Compat")?documentElement.scrollTop+documentElement.clientHeight-this.clientHeight-4:document.body.scrollTop+document.body.clientHeight-this.clientHeight-4));
+    _right:2px;
+    display: block;
+    margin:0px;
+    padding:0px;
+    border:1px solid #cccccc;
+    background-color: #ffffff;
+}
+.realusertag-content{
+    position: relative;
+}
+.realusertag-top{
+    position:relative;
+    height:35px;
+    margin:0px;
+    padding:0px;
+    background-color: #fcfcfc;
+    border-bottom:1px solid #f2f2f2;
+}
+.realusertag-top .top-title{
+    line-height: 35px;
+    font-size: 14px;
+    color:#333333;
+    margin:0px;
+    padding:0px 0px 0px 15px;
+}
+.realusertag-top .top-close{
+    position: absolute;
+    display: block;
+    height:24px;
+    width:24px;
+    top:5px;
+    right:5px;
+    background:url('/passApi/html/img/bd-split.gif') no-repeat -276px -35px;
+    cursor: pointer;
+}
+.realusertag-top .top-close:hover{
+    background-position: -276px -75px;
+}
+.realusertag-article .article-msg{
+    padding:0 15px;
+    height:170px;
+    position: relative;
+}
+.realusertag-article .article-msg p{
+    margin: 0px;
+    padding:0px;
+    color:#666666;
+    font-size: 12px;
+}
+.realusertag-article .article-msg .article-msg-title{
+    padding-top: 15px;
+    padding-bottom: 2px;
+    font-weight: bold;
+}
+.realusertag-article .article-msg .article-msg-content{
+    line-height: 24px;
+    text-indent: 2em;
+}
+
+.article-bindbutton{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+}
+.article-bindbutton.unreal{
+    bottom: 65px;
+}
+.article-bindbutton.real{
+    bottom: 45px;
+}
+.article-bindbutton .bindbutton-wrapper{
+    margin: 0 auto;
+    height:28px;
+    width:174px;
+    border:1px solid #4388cd;
+}
+.article-bindbutton a.bindbutton-a{
+    display: block;
+    height:21px;
+    width:173px;
+    border-top: 1px solid #5fa8f4;
+    border-left: 1px solid #5fa8f4;
+    background-color: #4a93df;
+
+    padding-top: 6px;
+    text-align: center;
+    font-size: 12px;
+    color:#fcfcfc;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #2c6aa8;
+    transition:.3s;
+}
+.article-bindbutton a.bindbutton-a:hover{
+    background-color: #458bd1;
+    border-color:#5ea7f3;
+    color: #ffffff
+}
+
+.realusertag-footer{
+    position: relative;
+    bottom:0px;
+    margin:0px 15px 15px 15px;
+    border-top: 1px dashed #d4d4d4;
+}
+.realusertag-footer .footer-left{
+    font-size: 12px;
+    color:#666666;
+    margin-top:10px;
+}
+.realusertag-footer .footer-right{
+    position: absolute;
+    right:0px;
+    _right:15px;
+    top:10px;
+    color:#0000cc;
+    font-size: 12px;
+}

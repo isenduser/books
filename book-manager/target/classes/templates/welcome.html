@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/bmsys/layui/css/layui.css"  media="all">
+  <script type="text/javascript" src="/bmsys/jquery.1.9.1.min.js"></script>
+  <script type="text/javascript" src="/bmsys/echarts/echarts.js"></script>
+  <script src="/bmsys/layui/layui.js" charset="utf-8"></script>
+  <style type="text/css">
+    	.hpanel{
+    	float: left;
+    	width: 68%;
+    	height: 98%;
+    	background-color: white;
+    	margin:0 auto;
+    	}
+    	/* 右边部分 */
+    	.hpanel2{
+    	float: left;
+    	width: 30%;
+    	height: 98%;
+    	background-color: white;
+    	margin:0 auto;
+    	}
+    
+    </style>
+</head>
+<script type="text/javascript">
+$(function() {
+	
+	// 保持左右高度一致
+	var h = $(window).height();
+	$(".left_item").css("height", h - 100);
+	$(".right_item").css("height", h - 100);
+	loadEcharts();
+	loadEcharts_1();
+	loadEcharts_2();
+	getData();
+})
+</script>
+<body>
+	<div  style="width: 100%;height:100%;background-color: #F0F2F5;">
+		<div style="width: 100%;height:100%;background-color: #F0F2F5;">
+			<div style="height: 1%;"></div>
+			<div style="margin:0 auto;width: 96%; background-color: #F0F2F5;">
+				
+				<!--  左边部份 -->
+				<div class="hpanel" style="">
+				<fieldset class="layui-elem-field layui-field-title">
+				  <legend>订单信息</legend>
+				</fieldset>
+				
+				<div style="padding: 20px;">
+				  <div class="layui-row layui-col-space15">
+				    <div class="layui-col-md3">
+				      <div class="layui-card">
+				        <div class="layui-card-header">当日销售情况</div>
+				        <div class="layui-card-body">
+				          	<div class="layui-row">
+							    <div class="layui-col-xs6">
+							      <div class="grid-demo grid-demo-bg1" id="saleNumByDay" style="font-size:20px"></div>
+							    </div>
+							    <div class="layui-col-xs6">
+							      <div class="grid-demo" id="turnoverByDay" style="font-size:20px;color:#008B00"></div>
+							    </div>
+							  </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="layui-col-md5">
+				      <div class="layui-card">
+				        <div class="layui-card-header">当月销售情况</div>
+				        <div class="layui-card-body">
+				          	<div class="layui-row">
+							    <div class="layui-col-md4">
+							      <div class="grid-demo grid-demo-bg1" id="saleNumByMonth" style="font-size:20px"></div>
+							    </div>
+							    <div class="layui-col-md4">
+							      <div class="grid-demo" id="saleByMonth" style="font-size:20px"></div>
+							    </div>
+							    <div class="layui-col-md4">
+							      <div class="grid-demo grid-demo-bg1" id="turnoverByMonth" style="font-size:20px;color:#008B00"></div>
+							    </div>
+							  </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="layui-col-md2">
+				      <div class="layui-card">
+				        <div class="layui-card-header">当月订单数量</div>
+				        <div class="layui-card-body" id="orderNumByMonth" style="font-size:20px">
+				        </div>
+				      </div>
+				    </div>
+				    <div class="layui-col-md2">
+				      <div class="layui-card">
+				        <div class="layui-card-header">当前库存</div>
+				        <div class="layui-card-body" id="bookNum" style="font-size:20px">
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				
+				
+					<form  class="layui-form" action="">
+			  <div class="layui-form-item">
+		        <label class="layui-form-label">订购时间</label>
+		        <div class="layui-input-inline" style="width: 140px;">
+		          <input type="text" name="dtStart" id="dtStart"  placeholder="yyyy-MM-dd"  class="layui-input">
+		        </div>
+		        <div class="layui-form-mid">-</div>
+		        <div class="layui-input-inline" style="width: 140px;">
+		          <input type="text" name="dtEnd" id="dtEnd"  placeholder="yyyy-MM-dd"  class="layui-input">
+		        </div>
+		        <div class="layui-input-inline" style="margin-top: 5px">
+			        <button type="button" class="layui-btn layui-btn-sm" onclick="searchButton()">查询</button>
+		        </div>
+		      </div>
+		      </form>
+				<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 95%;height:345px;"></div>
+    
+    <script type="text/javascript">
+    
+     function getData(){
+    	$.ajax({
+	         type : "post",
+	         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+	         url : "/bmsys/sale/getData",    //请求发送到后台
+	         dataType : "json",        //返回数据形式为json
+	         success : function(result) {
+	             //请求成功时执行该函数内容，result即为服务器返回的json对象
+	             $('#saleNumByDay').html(result.saleNumByDay);
+	             $('#turnoverByDay').html(result.turnoverByDay);
+	             $('#saleNumByMonth').html(result.saleNumByMonth);
+	             $('#saleByMonth').html(result.saleByMonth);
+	             $('#turnoverByMonth').html(result.turnoverByMonth);
+	             $('#orderNumByMonth').html(result.orderNumByMonth);
+	             $('#bookNum').html(result.bookNum);
+	         
+	        },
+	         error : function(errorMsg) {
+	             //请求失败时执行该函数
+				alert("error");
+	         }
+	    })
+    } 
+    
+        var myChart = echarts.init(document.getElementById('main'));
+    function loadEcharts(){
+         // 显示标题，图例和空的坐标轴
+         myChart.setOption({
+             title: {
+                 text: '订购情况'
+             }, 
+             tooltip: {trigger: 'axis'},//为’axis’时显示该列下所有坐标轴所对应的数据。
+             legend: {
+                 data:['数量']
+             },
+             toolbox: {
+                 show : true,
+                 feature : {
+                     mark : {show: true},
+                     dataView : {show: true, readOnly: false},
+                     magicType : {show: true, type: ['line', 'bar']},
+                     restore : {show: true},
+                     saveAsImage : {show: true}
+                 }
+             },
+             xAxis: {
+            	 type : 'category',
+                 data: []
+             },
+             yAxis: {},
+             series: [{
+                 name: '数量',
+                 type: 'bar',
+                 itemStyle:{
+                     normal:{
+                         color:'#4ad2ff'
+                     }
+                 },
+                 data: []
+             }]
+             
+         });
+         reLoadEchart(myChart);
+    }
+		 
+	    function searchButton(){
+			 reLoadEchart(myChart);
+		 }
+	    
+         function reLoadEchart(myChart){
+			 myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画 
+	         var names=[];    //类别数组（实际用来盛放X轴坐标值）
+	         var nums=[];    //数量（实际用来盛放Y坐标值）
+	         $.ajax({
+	         type : "post",
+	         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+	         url : "/bmsys/order/orderChart",    //请求发送到后台
+	         data : {
+	        	 'dtStart': $("input[name='dtStart']").val(),
+                 'dtEnd': $("input[name='dtEnd']").val()
+	         },
+	         dataType : "json",        //返回数据形式为json
+	         success : function(result) {
+	             //请求成功时执行该函数内容，result即为服务器返回的json对象
+	             //alert(JSON.stringify(result));
+	             if (result) {
+	                    for(var i=0;i<result.length;i++){       
+	                       names.push(result[i].name);    //挨个取出类别并填入类别数组
+	                     }
+	                    for(var i=0;i<result.length;i++){       
+	                        nums.push(result[i].num);    //挨个取出已发送并填入销量数组
+	                      }
+	                    myChart.hideLoading();    //隐藏加载动画
+	                    myChart.setOption({        //加载数据图表
+	                        xAxis: {
+	                            data: names
+	                        },
+	                        series: [{
+	                            // 根据名字对应到相应的系列
+	                            name: '数量',
+	                            data: nums
+	                        }]
+	                    });
+	                    
+	             }
+	         
+	        },
+	         error : function(errorMsg) {
+	             //请求失败时执行该函数
+	         alert("图表请求数据失败!");
+	         myChart.hideLoading();
+	         }
+	    })
+        	 
+         }
+
+　　</script>
+			</div>
+			
+				</div>
+				
+				<div  style="width: 2%;background-color: #F0F2F5;height: 99%;float: left;">
+				</div>
+				
+				<!-- 右边部份 -->
+				<div  class="hpanel2" style="">
+					<fieldset class="layui-elem-field layui-field-title">
+					  <legend>销售分析</legend>
+					</fieldset>
+					
+					<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    				<div id="main_1" style="width: 115%;height:220px;"></div>
+    				<script type="text/javascript">			    
+				    function loadEcharts_1(){
+				        var myChart = echarts.init(document.getElementById('main_1'));
+				         // 显示标题，图例和空的坐标轴
+				         myChart.setOption({
+				             /* title: {
+				                 text: '异步数据加载示例'
+				             }, */
+				             tooltip: {trigger: 'axis'},
+				             legend: {
+				                 data:['数量','销售额']
+				             },
+				             xAxis: {
+				            	 type : 'category',
+				                 data: []
+				             },
+				             yAxis: {},
+				             series: [{
+				                 name: '数量',
+				                 type: 'line',
+				                 data: []
+				             },
+				             {
+				                 name: '销售额',
+				                 type: 'line',
+				                 data: []
+				             }]
+				             
+				         });
+				         reLoadEchart_1(myChart);
+				    }
+						 
+				         function reLoadEchart_1(myChart){
+							 myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画 
+					         var names=[];    //类别数组（实际用来盛放X轴坐标值）
+					         var nums_1=[];    //数量（实际用来盛放Y坐标值）
+					         var nums_2=[];    //销售额（实际用来盛放Y坐标值）
+					         $.ajax({
+					         type : "post",
+					         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+					         url : "/bmsys/sale/saleChartByMonth",    //请求发送到后台
+					         data : {},
+					         dataType : "json",        //返回数据形式为json
+					         success : function(result) {
+					             //请求成功时执行该函数内容，result即为服务器返回的json对象
+					             if (result) {
+					                    for(var i=0;i<result.length;i++){       
+					                       names.push(result[i].name);    //挨个取出类别并填入类别数组
+					                     }
+					                    for(var i=0;i<result.length;i++){       
+					                        nums_1.push(result[i].num_1);    //挨个取出已发送并填入销量数组
+					                      }
+					                    for(var i=0;i<result.length;i++){       
+					                        nums_2.push(result[i].num_2);    //挨个取出成功并填入销量数组
+					                      }
+					                    myChart.hideLoading();    //隐藏加载动画
+					                    myChart.setOption({        //加载数据图表
+					                        xAxis: {
+					                            data: names
+					                        },
+					                        series: [{
+					                            // 根据名字对应到相应的系列
+					                            name: '数量',
+					                            data: nums_1
+					                        },
+					                        {
+					                            // 根据名字对应到相应的系列
+					                            name: '销售额',
+					                            data: nums_2
+					                        }]
+					                    });
+					                    
+					             }
+					         
+					        },
+					         error : function(errorMsg) {
+					             //请求失败时执行该函数
+					         alert("图表请求数据失败!");
+					         myChart.hideLoading();
+					         }
+					    })
+				        	 
+				         }
+				
+				　　</script>
+					
+					<fieldset class="layui-elem-field layui-field-title">
+					  <legend>图书库存</legend>
+					</fieldset>
+					<div id="main_2" style="width: 400px;height:280px;"></div>
+					<script type="text/javascript">
+					function loadEcharts_2(){
+						var myChart = echarts.init(document.getElementById('main_2'));
+						myChart.setOption({
+							tooltip : {
+						        trigger: 'item',
+						        formatter: "{b} : {c} ({d}%)"
+						    },
+							legend: {
+						        type: 'scroll',
+						        orient: 'vertical',
+						        right: 5,
+						        top: 5,
+						        bottom: 5,
+						        data: [],
+						    },
+						    series : [
+						        {
+						            name: '图书',
+						            type: 'pie',
+						            radius : '55%',
+						            center: ['35%', '50%'],
+						            data:[],
+						            itemStyle: {
+						                emphasis: {
+						                    shadowBlur: 10,
+						                    shadowOffsetX: 0,
+						                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+						                }
+						            }
+						        }
+						    ]
+				         });
+				         reLoadEchart_2(myChart);
+					}
+					
+					function reLoadEchart_2(myChart){
+						 myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画 
+				         var names=[];    //类别数组（实际用来存放类别）
+				         var servicedata=[];	//存放所有数据
+				         $.ajax({
+				         type : "post",
+				         async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+				         url : "/bmsys/book/bookChartPie",    //请求发送到后台
+				         data : {},
+				         dataType : "json",        //返回数据形式为json
+				         success : function(result) {
+				             //请求成功时执行该函数内容，result即为服务器返回的json对象
+				             		if(result){
+				             			for(var i=0;i<result.length;i++){    
+						                    names.push(result[i].name);    //挨个取出类别并填入类别数组
+						                    var obj=new Object();
+						                    obj.name=result[i].name;
+						                    obj.value=result[i].number;
+				             				servicedata[i]=obj;
+						                }
+				             			//alert(JSON.stringify(servicedata));
+				             		}
+				             		//alert(JSON.stringify(result));
+				             		myChart.hideLoading();    //隐藏加载动画
+				                    myChart.setOption({        //加载数据图表
+				                    	legend: {
+									        type: 'scroll',
+									        orient: 'vertical',
+									        right: 5,
+									        top: 5,
+									        bottom: 5,
+									        data: names,
+									    },
+									    series : [
+									        {
+									            name: '图书',
+									            type: 'pie',
+									            radius : '55%',
+									            center: ['35%', '50%'],
+									            data:servicedata,
+									            itemStyle: {
+									                emphasis: {
+									                    shadowBlur: 10,
+									                    shadowOffsetX: 0,
+									                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+									                }
+									            }
+									        }
+									    ]
+				                    });
+				         
+				        },
+				         error : function(errorMsg) {
+				             //请求失败时执行该函数
+				         alert("图表请求数据失败!");
+				         myChart.hideLoading();
+				         }
+				    })
+			        	 
+			         }
+					</script>
+				</div>
+			
+			
+			</div>
+		</div>
+<script>
+	//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+	layui.use(['element','laydate','form','table'], function() {
+		var element = layui.element;
+		var laydate = layui.laydate;
+		var form = layui.form;
+		var table = layui.table;
+		//渲染日期
+	  laydate.render({
+	    elem: '#dtStart'
+	  });
+	  laydate.render({
+	    elem: '#dtEnd'
+	  });
+	})
+	</script>
+</body>
+</html>

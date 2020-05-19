@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <style type="text/css">
+        .layui-form{
+            margin-top: 20px;
+        }
+        .layui-form-select{
+            right: 50px;
+        }
+        .layui-input{
+            width: 80%;
+        }
+
+        .layui-form-select dl{
+            min-width: 80%;
+        }
+        input[name='name']{
+            width: 552px ;
+        }
+        input[name='phoneNumb']{
+            width: 552px;
+        }
+    </style>
+</head>
+<body>
+    <form class="layui-form" id="perfectForm">
+        <div class="layui-form-item" id="nameitem">
+            <label class="layui-form-label">收货人</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required  lay-verify="required" placeholder="请输入收货人的姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="女" checked>
+                <input type="radio" name="sex" value="1" title="男">
+            </div>
+        </div>
+        <!--<div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-inline">
+                <input type="text" name="age" required  lay-verify="required" placeholder="请输入您的年龄"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">收货地址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="address" required  lay-verify="required" placeholder="请输入收货人的收货地址"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-item">
+            <label class="layui-form-label">职业</label>
+            <div class="layui-input-inline">
+                <input type="text" name="profession" required  lay-verify="required" placeholder="请输入您的职业"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>-->
+        <!--layui form表单中的button标签按回车键会自动触发提交，所以改成a标签，或者拿出form表单-->
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <a onclick="perfectInfo()" class="layui-btn">修改并保存信息</a>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/js/js2/pay.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script>
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+        });
+        editCustomerInfo();
+    </script>
+</html>

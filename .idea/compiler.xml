@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="customer-consumer" />
+        <module name="gateway" />
+        <module name="common" />
+        <module name="customer-provider" />
+        <module name="order-consumer" />
+        <module name="book-manager" />
+        <module name="book-consumer" />
+        <module name="order-provider" />
+        <module name="book-provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="book-consumer" target="1.8" />
+      <module name="book-manager" target="1.8" />
+      <module name="book-provider" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="customer-consumer" target="1.8" />
+      <module name="customer-provider" target="1.8" />
+      <module name="gateway" target="1.8" />
+      <module name="order-consumer" target="1.8" />
+      <module name="order-provider" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="book-consumer" options="-parameters" />
+      <module name="book-manager" options="-parameters" />
+      <module name="book-provider" options="-parameters" />
+      <module name="common" options="-parameters" />
+      <module name="customer-consumer" options="-parameters" />
+      <module name="customer-provider" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="order-consumer" options="-parameters" />
+      <module name="order-provider" options="-parameters" />
+    </option>
+  </component>
+</project>

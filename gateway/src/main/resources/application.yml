@@ -1,0 +1,49 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true		  # 让gateway通过服务发现组件找到其他的微服务
+      routes:
+        - id: customer-consumer        # 唯一标识，通常使用服务id
+          uri: lb://customer-consumer  # lb代表从注册中心获取服务，lb是Load Balance的缩写
+          predicates:               # 断言
+          - Path=/customerconsumer/*        # 匹配转发路径
+
+        - id: customer-provider
+          uri: lb://customer-provider
+          predicates:
+          - Path=/customerprovider/*
+
+        - id: book-provider
+          uri: lb://book-provider
+          predicates:
+          - Path=/bookprovider/*
+
+        - id: book-consumer
+          uri: lb://book-consumer
+          predicates:
+          - Path=/bookconsumer/*
+
+        - id: order-consumer
+          uri: lb://order-consumer
+          predicates:
+          - Path=/orderconsumer/*
+
+        - id: order-provider
+          uri: lb://order-provider
+          predicates:
+          - Path=/orderprovider/*
+      httpclient:
+        response-timeout: 40000
+
+
+

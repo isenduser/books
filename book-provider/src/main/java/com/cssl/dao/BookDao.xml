@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.BookDao">
+
+    <resultMap id="myBook" type="type">
+        <id column="tid" property="tid"/>
+        <collection property="list" select="queryBook" column="tid"/>
+    </resultMap>
+    <select id="queryBook" resultType="books">
+        select bid,bname,picPath,price from books where b_tid=#{tid}  order by dealmount desc
+        limit 0,5
+    </select>
+
+    <select id="queryAllBooks" resultType="books">
+        select bid,bname,picPath,price from books
+    </select>
+
+    <select id="queryAll" resultMap="myBook">
+        select * from type t
+    </select>
+
+
+    <select id="queryByType" resultType="books">
+        select bid,bname,picPath,price from books
+        <where>
+            <if test="tid != 0 and tid != null">
+                b_tid=#{tid}
+            </if>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <select id="queryCount" resultType="int">
+        select count(1) from books
+        <where>
+            <if test="tid != 0 and tid != null">
+                b_tid=#{tid}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="myMap" type="books">
+        <id column="bid" property="bid"/>
+        <association property="type" javaType="type"/>
+    </resultMap>
+    <select id="queryById" resultMap="myMap">
+        select * from books b inner join type t on b.b_tid=t.tid where bid=#{bid}
+    </select>
+
+    <select id="getGood" resultType="books">
+        select bid,bname,picPath,price from books order by dealmount desc limit 0,10
+    </select>
+
+    <update id="updateBookNum">
+        update books set bookNum=bookNum-#{count},dealmount=dealmount+#{count}
+        where bid=#{bid}
+    </update>
+
+    <select id="getNewBooks" resultType="books">
+        select bid,bname,picPath,price from books order by publishDate desc limit 0,10
+    </select>
+
+    <select id="searchByName" resultType="books">
+        select bid,bname,picPath,price from books where bname like(#{name})
+    </select>
+</mapper>

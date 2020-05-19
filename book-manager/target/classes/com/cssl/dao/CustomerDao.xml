@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.CustomerDao">
+    <select id="queryCustomer" resultType="customer">
+        select * from customer limit #{page},#{limit}
+    </select>
+    <update id="updateCustomer">
+        update customer set cname=#{cname},cpassword=#{cpassword},tel=#{tel},name=#{name},
+        sex=#{sex},address=#{address} where cid=#{cid}
+    </update>
+    <insert id="insertCustomer" keyColumn="cid" keyProperty="cid">
+        insert into customer values(null,#{cname},#{cpassword},#{sex},#{tel},#{regtime},#{name},#{address})
+    </insert>
+    <delete id="deleteCustomer">
+        delete from customer where cid=#{cid}
+    </delete>
+</mapper>

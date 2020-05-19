@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/book-consumer/book-consumer.iml" filepath="$PROJECT_DIR$/book-consumer/book-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book-manager/book-manager.iml" filepath="$PROJECT_DIR$/book-manager/book-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book-provider/book-provider.iml" filepath="$PROJECT_DIR$/book-provider/book-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/books.iml" filepath="$PROJECT_DIR$/books.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customer-consumer/customer-consumer.iml" filepath="$PROJECT_DIR$/customer-consumer/customer-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customer-provider/customer-provider.iml" filepath="$PROJECT_DIR$/customer-provider/customer-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-consumer/order-consumer.iml" filepath="$PROJECT_DIR$/order-consumer/order-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order-provider/order-provider.iml" filepath="$PROJECT_DIR$/order-provider/order-provider.iml" />
+    </modules>
+  </component>
+</project>

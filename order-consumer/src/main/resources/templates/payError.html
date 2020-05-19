@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta name="renderer" content="webkit" />
+    <title>支付失败<——>6号书店 </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css2/paySuccess.css}"/>
+</head>
+<body>
+<!--公共头部引入-->
+<div th:replace="common/frontend/public :: #header"></div>
+<!--Logo和进度部分-->
+<div id="logo-jindu">
+    <div class="logo">
+        <a th:href="@{/frontSkip/toIndex}"><img th:src="@{/img/logo.png}" alt="欢迎来到6号书店"/></a>
+    </div>
+    <h2>支付成功页面</h2>
+    <div class="jindu">
+        <div class="div1">
+            <div class="yuan yuan1">
+                1
+            </div>
+            1.我的购物车
+            <b class="b1"></b>
+        </div>
+        <div class="div2">
+            <div class="yuan yuan2">
+                2
+            </div>
+            2.填写核对订单信息
+            <b class="b2"></b>
+        </div>
+        <div class="div3">
+            <div class="yuan yuan3">
+                3
+            </div>
+            3.成功提交订单
+            <b class="b3"></b>
+            <b class="b4"></b>
+        </div>
+    </div>
+</div>
+<!--logo和进度部分结束-->
+
+<!--内容区-->
+<div id="contentwrap">
+    <div id="content">
+        <img th:src="@{/img/paySuccess.png}"/>
+        <div class="contentRight">
+            <h2>支付失败！请稍后再试</h2>
+            <p><span>10</span>S后将自动返回6号首页 </p>
+            <a th:href="@{/bookconsumer/queryBook}">立即返回首页</a>
+        </div>
+    </div>
+</div>
+
+
+<!--引入公共footer-->
+<div th:replace="~{common/frontend/public :: footer}"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/paySuccess.js}"></script>
+</html>

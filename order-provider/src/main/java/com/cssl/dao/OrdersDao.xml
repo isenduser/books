@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.OrdersDao">
+    <insert id="insertOrders" keyProperty="oid" keyColumn="oid">
+        insert into orders
+    values(null,#{orderId},#{customer.cid},#{orderDate},#{ocount},#{message},#{paymethod},
+    #{customer.name},#{customer.address},#{customer.tel},#{totalprice},#{status})
+    </insert>
+    <insert id="insertOrderDetail" keyColumn="odid" keyProperty="odid">
+        insert into orderdetail values(null,#{oid},#{books.bid},#{amount},#{dprice})
+    </insert>
+
+    <resultMap id="myOrders" type="orders">
+        <id column="oid" property="oid"/>
+        <collection property="list" ofType="orderDetail"/>
+    </resultMap>
+    <select id="queryOrders" resultType="orders">
+        select * from orders o
+        where cid=#{cid} limit #{page},#{limit}
+    </select>
+
+    <select id="queryOrdersCount" resultType="int">
+        select count(1) from orders where cid=#{cid}
+    </select>
+
+    <resultMap id="detail" type="orderdetail">
+        <id property="odid" column="odid"/>
+        <association property="books" javaType="books"/>
+    </resultMap>
+    <select id="queryOrderDetail" resultMap="detail">
+        select * from orderdetail d inner join books b on d.bid=b.bid
+        where oid=#{oid}
+    </select>
+
+    <update id="updateStatus">
+        update orders set status='已支付' where orderId=#{oid}
+    </update>
+    <update id="shouhuo">
+        update orders set status="已收货" where oid=#{oid}
+    </update>
+</mapper>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit" />
+    <title>欢迎登录</title>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/css2/login.css"/>
+</head>
+<body>
+<div id="nav-wrap">
+    <div class="container">
+        <!-- logo -->
+        <div class="logo">
+            <a href="#" class="glyphicon glyphicon-plane"></a>
+        </div>
+        <!-- 搜索框 -->
+        <form class="navbar-form navbar-left" role="search">
+            <input type="text" id="booksearch" placeholder="在这里输入你想找的书籍吧！"/>
+            <button type="button" onclick="search();">搜索</button>
+        </form>
+        <!-- end 导航 -->
+        <!-- 用户栏 -->
+        <div class="twoButton navbar-right">
+            <!-- 登陆&注册栏 -->
+            <span>
+                <a class="login btn btn-normal btn-primary" href="javascript:;" target="_self">登录</a>
+                <a class="register btn btn-normal btn-success" href="/customerconsumer/toRegister" target="_self">注册</a>
+            </span>
+        </div>
+    </div>
+</div>
+<!--内容区-->
+<div id="content_wrapper">
+    <div class="login-box">
+        <div class="login-shang">
+            <h2 class="logo"><img src="/img/logo2.png"/></h2>
+            <h2 class="miaoshu">欢迎登录6号书店！</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="phoneNumber" class="input-group-addon glyphicon glyphicon-user" ></label>
+                    <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="请输入您的用户名" autocomplete="off" >
+                </div>
+                <div class="input-group">
+                    <label for="password" class="input-group-addon glyphicon glyphicon-lock" ></label>
+                    <input type="password" id="password"  name="password" class="form-control" placeholder="密码" autocomplete="off">
+                </div>
+                <div id="errormessage">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <em>请输入正确的用户名和密码</em>
+                </div>
+                <div class="checkbox">
+                    <!--<label>
+                        <input type="checkbox" id="rememberMe"> 记住我
+                    </label>-->
+                    <a href="#">忘记密码</a>
+                    <button type="button" class="btn btn-normal btn-primary" id="denglu" onclick="customerLogin()">登录</button>
+                </div>
+            </form>
+        </div>
+        <div class="login-xia">
+            <span>还没有账号?</span>&nbsp;&nbsp;
+            <a href="/customerconsumer/toRegister" target="_self">立即注册</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+            <a href="/bookconsumer/queryBook">游客访问</a>
+        </div>
+    </div>
+</div>
+<!--引入公共footer-->
+<div th:replace="~{common/frontend/public :: footer}"></div>
+</body>
+<script type="text/javascript" src="/js/jquery.js" ></script>
+<script type="text/javascript" src="/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/js/js2/login.js" ></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+</html>

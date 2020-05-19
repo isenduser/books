@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>前端的公共页面部分</title>
+</head>
+<body>
+
+<!--固定导航栏-->
+<div id="header" class="clearfix" >
+    <div id="header-left">
+        <a th:if="${session.user==null}" th:href="@{/customerconsumer/dologin}"><i class="glyphicon glyphicon-user"></i> 请，先登录</a>
+        <span th:if="${session.user!=null}" style='font:400 14px 微软雅黑;color: red;'>尊敬的客户："[[${session.user.cname}]]",请尽快完善个人信息!</span> &nbsp;
+        <a th:if="${session.user!=null}" href='/customerconsumer/logout'>[退出]</a>
+        <a th:href="@{/customerconsumer/toRegister}"><i class="glyphicon glyphicon-pencil"></i> 免费注册</a>
+    </div>
+
+    <div id="header-right">
+        <a href="#"><i class="glyphicon glyphicon-user"></i> web聊天室</a>
+        <a th:href="@{/bookconsumer/queryBook}"><i class="glyphicon glyphicon-home"></i> 前往6号首页</a>
+        <a href="#" th:if="${session.user!=null}" id="toshoppingCart" th:onclick="'javascript:toShoppingCart('+${session.user.cid}+')'"><i class="glyphicon glyphicon-shopping-cart"></i> 购物车</a>
+        <a href="#" th:if="${session.user==null}" id="toshoppingCart2" th:onclick="'javascript:toShoppingCart('+${session.user}+')'"><i class="glyphicon glyphicon-shopping-cart"></i> 购物车</a>
+        <a href="#"><i class="glyphicon glyphicon-th-list"></i> 收藏夹</a>
+        <a href="#" th:if="${session.user != null}" th:href="@{/orderconsumer/tomyOrder}"><i class="glyphicon glyphicon-th-list"></i> 我的订单</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!--footer-->
+<div th:fragment="footer" id="index_footer">
+    <div id="footer_help">
+        <div class="xiaofei">
+            <h4>消费者保障</h4>
+            <ul>
+                <li><a href="javascript:;">七天无理由退货</a></li>
+                <li><a href="javascript:;">24小时内发货</a></li>
+                <li><a href="javascript:;">服务中心</a></li>
+            </ul>
+        </div>
+        <div class="xinshou">
+            <h4>新手上路</h4>
+            <ul>
+                <li><a href="javascript:;">如何买书</a></li>
+                <li><a href="javascript:;">如何支付</a></li>
+                <li><a href="javascript:;">如何退换货</a></li>
+                <li><a href="javascript:;">配送说明</a></li>
+            </ul>
+        </div>
+        <div class="fukuan">
+            <h4>付款方式</h4>
+            <ul>
+                <li><a href="javascript:;">网上支付</a></li>
+                <li><a href="javascript:;">余额支付</a></li>
+                <li><a href="javascript:;">积分支付</a></li>
+                <li><a href="javascript:;">点券支付</a></li>
+            </ul>
+        </div>
+        <div class="geren">
+            <h4>个人账户</h4>
+            <ul>
+                <li><a href="javascript:;">如何注册</a></li>
+                <li><a href="javascript:;">普通会员与VIP</a></li>
+                <li><a href="javascript:;">VIP特权</a></li>
+                <li><a href="javascript:;">第三方登录</a></li>
+                <li><a href="javascript:;">更多介绍</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="divul">
+        <ul>
+            <li><a href="javascript:void(0)">关于我们</a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">联系我们</a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">人才招聘</a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)"> 商家入驻</a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">广告服务 </a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">手机6号 </a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">友情链接 </a></li>
+            <li>|</li>
+            <li><a href="javascript:void(0)">6号社区 </a></li>
+        </ul>
+        <p>Copyright © 2004-2018  六号666.com 版权所有</p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.ShopDao">
+    <insert id="insert">
+        insert into shop values(#{cid},#{bid},#{ordercount},#{sprice})
+    </insert>
+    <select id="queryBid" resultType="shop">
+        select * from shop where cid=#{cid} and bid =#{bid};
+    </select>
+    <update id="updateByBid">
+        update shop set ordercount=ordercount+#{ordercount},sprice=sprice+#{sprice}
+        where cid=#{cid} and bid=#{bid}
+    </update>
+    <select id="queryBookCount" resultType="int">
+        select coalesce(sum(ordercount),0) from shop where cid=#{cid}
+    </select>
+    <select id="queryAllBook" resultType="books">
+        select * from shop s inner join books b on s.bid=b.bid
+        where cid=#{cid}
+    </select>
+
+    <resultMap id="myShop" type="shop">
+        <association property="books" column="bid"/>
+    </resultMap>
+    <select id="queryAllShop" resultMap="myShop">
+        select * from shop s inner join books b on s.bid=b.bid
+        where cid=#{cid}
+    </select>
+
+    <delete id="deleteShop">
+        delete from shop where cid=#{cid}
+    </delete>
+
+    <delete id="deleteByBookNo">
+        delete from shop where cid=#{cid} and bid=#{bid}
+    </delete>
+
+    <delete id="deleteByBookNos">
+        delete from shop where cid=#{cid} and bid in
+        <foreach collection="list" item="bid" open="(" separator="," close=")">
+            #{bid}
+        </foreach>
+    </delete>
+</mapper>

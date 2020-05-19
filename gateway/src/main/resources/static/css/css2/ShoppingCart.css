@@ -1,0 +1,443 @@
+#header{
+  width: 100%;
+  height: 40px;
+  background-color: #f5f5f5;
+  min-width: 670px;
+}
+#header-left{
+	  float: left;
+	  height: 100%;
+	  min-width: 220px;
+	  margin-left: 200px;
+}
+@media  screen and (max-width:870px) {
+	#header-left{
+		margin-left:0px;
+	}
+}
+#header-left a ,#header-right a {
+	 text-decoration: none;
+   line-height: 40px;
+   font-size: 13px;
+   color: #666;
+	 margin-left: 15px;
+}
+#header-left a:nth-child(1){
+	color: red;
+}
+#header a:hover{
+	color: red;
+}
+
+#header-center{
+    float: left;
+    height: 100%;
+    margin-left: 200px;
+    min-width: 300px;
+    line-height: 40px;
+    font-size: 13px;
+    color: #666;
+}
+#header-right{
+	  float: right;
+	  height: 100%;
+	  margin-right: 100px;
+	  min-width: 300px;
+}
+/*logo和进度部分*/
+#logo-jindu{
+	min-width: 100%;
+	height: 120px;
+	margin-top: 20px;
+	position: relative;
+}
+.logo{
+	float:left;
+	margin-left: 200px;
+	margin-top: 0px;
+}
+#logo-jindu .jindu{
+	width: 500px;
+	height: 40px;
+	float: right;
+	margin-top: 20px;
+	margin-right: 200px;
+}
+#logo-jindu .jindu div{
+	position: relative;
+	width: 160px;
+	height: 30px;
+	border-top: 5px solid #7abd54;
+	float: left;
+	font: 12px/30px "微软雅黑";
+	text-align: center;
+}
+#logo-jindu .jindu div[class='div1']{
+	border-top: 5px solid #7abd54;
+	color: #7abd54;
+}
+#logo-jindu .jindu div[class='div2']{
+	border-top: 5px solid #ccc;
+	color:#ccc;
+	margin: 0px 5px;
+}
+#logo-jindu .jindu div[class='div3']{
+	border-top: 5px solid #ccc;
+	color: #ccc;
+}
+#logo-jindu .jindu > div > .yuan{
+	width: 23px;
+	height: 23px;
+	line-height: 23px;
+	text-align: center;
+	border: none;
+	border-radius: 50%;
+	margin: -15px 65px 0px;
+	font: 600 14px "微软雅黑";
+	color: white;
+}
+#logo-jindu .jindu > div > .yuan1{
+	background-color: #7abd54;
+}
+#logo-jindu .jindu > div > .yuan2{
+	background-color: #ccc;
+}
+#logo-jindu .jindu > div > .yuan3{
+	background-color: #ccc;
+}
+#logo-jindu .jindu > div > b{
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	background-color: red;
+	border-radius: 2px;
+}
+#logo-jindu .jindu > div > .b1{
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	background-color: #7abd54;
+}
+#logo-jindu .jindu > div > .b2{
+	position: absolute;
+	top: -5px;
+	left: -6px;
+	background-color: #7abd54;
+}
+#logo-jindu .jindu > div > .b3{
+	position: absolute;
+	top: -5px;
+	left: -6px;
+	background-color: #ccc;
+}
+#logo-jindu .jindu > div > .b4{
+	position: absolute;
+	top: -5px;
+	left: 159px;
+	background-color:#ccc;
+}
+
+
+
+
+/*购物车*/
+#cartWrap{
+	width: 1200px;
+	margin: 0 auto;
+}
+#cartWrap .cartHeader{
+	width: 100%;
+	height: 40px;
+	background-color: #f3f3f3;
+	border: 1px solid #e9e9e9;
+	padding: 5px 0px;
+}
+#cartWrap .cartHeader .xuanze{
+	width: 160px;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+	float: left;
+}
+#cartWrap .cartHeader .shangpin{
+	width: 500px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+}
+#cartWrap .cartHeader .sx{
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+}
+#cartWrap #cartContent{
+	height: auto;
+	overflow: auto;
+}
+
+#cartContent > .cartItem:hover{
+    background-color: #e9e9e9;
+}
+
+#cartInfo{
+	width: 1200px;
+	text-align:center;
+	margin:120px auto;
+	font-size: 30px;
+}
+#cartInfo a{
+	color: #666;
+}
+#cartInfo  a:hover{
+	color: red;
+}
+#cartWrap #cartContent .cartItem{
+	width: 100%;
+	height: 120px;
+	border: 1px solid #e9e9e9;
+}
+.cartItem .checkbox{
+	width: 40px;
+	height: 40px;
+	float: left;
+}
+.cartItem .checkbox input{
+	margin-left: 10px;
+}
+.cartItem .goodsItem{
+	width: 550px;
+	height: 100%;
+	float: left;
+	padding: 10px 10px;
+}
+.cartItem .goodsItem img{
+	display: block;
+	width:80px;
+	height:80px;
+	margin-left: 10px;
+	float: left;
+}
+.cartItem .goodsItem .bookInfo{
+	width: 400px;
+	height: 100%;
+	float: left;
+	padding-left: 18px;
+}
+.cartItem .goodsItem .bookInfo a{
+	display: block;
+	width: 300px;
+	height: 20px;
+	font: 12px/20px "微软雅黑";
+	color: #333333;
+	text-decoration: none;
+	white-space: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cartItem .goodsItem .bookInfo a:hover{
+	color: red;
+}
+.cartItem .goodsItem .bookInfo p{
+	font: 12px "微软雅黑";
+	color: #666666;
+	margin-top: 10px;
+}
+.cartItem .wuxiang{
+	width: 510px;
+	height: 100%;
+	margin-right: 35px;
+	padding: 10px;
+	float: right;
+}
+.cartItem .wuxiang .danjia{
+	width: 50px;
+	height: 50px;
+	margin: 14px 0px;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+}
+.cartItem .wuxiang .shuliang{
+	width: 100px;
+	height: 30px;
+	float: left;
+	padding: 5px 0px;
+	position: relative;
+	margin-left: 29px;
+	margin-top: 24px;
+}
+.cartItem .wuxiang .shuliang a{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	text-decoration: none;
+	border: 1px solid #cacbcb;
+	color: #666;
+}
+.cartItem .wuxiang .shuliang a[class='aright']{
+	position: absolute;
+	top: 5px;
+	left: 70px;
+}
+
+.cartItem .wuxiang .shuliang input{
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	display: inline-block;
+	width: 50px;
+	height: 20px;
+	border: none;
+	border: 1px solid #cacbcb;
+	text-align: center;
+	color: black;
+	font-size: 12px;
+	outline: none;
+	background-color: white;
+}
+.cartItem .wuxiang .kucun{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 14px 24px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 14px;
+}
+.cartItem .wuxiang .xiaoji{
+	width: 50px;
+	height: 50px;
+	margin: 14px 18px;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+}
+.cartItem .wuxiang .caozuo{
+	width: 50px;
+	height: 50px;
+	margin: 14px 36px;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+}
+/*购物车footer*/
+#cartfooter{
+	width: 1200px;
+	height: 50px;
+	margin: 20px auto;
+	padding-left: 10px;
+	border: 1px solid #f0f0f0;
+}
+#cartfooter .leftbian{
+	width: 500px;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+}
+#cartfooter .leftbian > label{
+	 font: 14px "微软雅黑";
+}
+#cartfooter .leftbian > label:hover{
+	cursor: pointer;
+}
+#cartfooter .leftbian a{
+	display: inline-block;
+	text-decoration: none;
+	color: #333333;
+	font: 12px "微软雅黑";
+	margin-left: 15px;
+}
+#cartfooter .leftbian a:hover{
+	text-decoration: underline;
+	color: red;
+}
+#cartfooter .rightbian{
+	 height: 50px;
+	 float: right;
+}
+#cartfooter .rightbian span{
+	display: block;
+	 height: 50px;
+	 line-height: 50px;
+	 float: left;
+}
+#cartfooter .rightbian a{
+	display: inline-block;
+	width: 95px;
+	height: 50px;
+	float: left;
+	background: url(../../img/cart-btn.png) no-repeat;
+	background-size: 95px 50px;
+	margin-left: 104px;
+}
+
+/*footer*/
+#index_footer{
+	width: 100%;
+	height:340px;
+	margin-top: 100px;
+	background-color: #f5f5f5;
+}
+#footer_help{
+	width: 1200px;
+	height: 160px;
+	margin: 0 auto;
+	padding: 50px 0;
+}
+#footer_help div{
+	display: inline-block;
+	width: 300px;
+	height: 100px;
+	float: left;
+}
+
+#index_footer #divul{
+	width: 1200px;
+	height: 140px;
+	margin: 15px auto;
+}
+#index_footer #divul ul{
+	width: 800px;
+	height: 50px;
+	display: block;
+	margin: 0 auto;
+	line-height: 50px;
+}
+
+#index_footer #divul li{
+	font-size: 14px;
+	float: left;
+	margin-left: 20px;
+	color:gray ;
+}
+#index_footer #divul a{
+	text-decoration: none;
+	color: gray;
+}
+#index_footer #divul a:hover{
+	color: red;
+	text-decoration: underline;
+}
+#index_footer #divul p{
+	margin: 10px auto;
+	color: gray;
+	text-align: center;
+}
+#footer_help h4{
+	font: 600 16px "微软雅黑";
+	margin-bottom: 10px;
+}
+#footer_help ul li{
+	float: left;
+	width: 140px;
+	height: 25px;
+}
+#footer_help ul li a{
+	color: gray;
+}
+#footer_help ul li a:hover{
+	color: red;
+}

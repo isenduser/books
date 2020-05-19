@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script> var startTime = new Date().getTime();</script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>6号书店首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css2/homePage.css}"/>
+</head>
+<body>
+<!--公共头部引入-->
+<div th:replace="common.frontend/public :: header"></div>
+
+<!--搜索部分-->
+<!--<span th:text="${session.user.cname}"></span>-->
+<div id="logo-search"  >
+    <div class="logo">
+        <a><img th:src="@{/img/logo.png}" alt="欢迎来到6号书店" /></a>
+    </div>
+    <div class="search">
+            <input type="text" id="booksearch" placeholder="在这里输入你想找的书籍吧！"/>
+            <button type="button" onclick="search();">搜索</button>
+    </div>
+    <div class="dong">
+      		<span>
+      			<marquee onmouseover=this.stop() onmouseout=this.start() scrollamount=5 behavior="scroll">
+				依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！
+				新版《六号隐私政策》已上线，将更有利于保护您的个人隐私。
+				</marquee>
+      		</span>
+    </div>
+</div>
+<!--轮播部分-->
+<div id="lunbo" >
+    <div class="layui-carousel" id="test1">
+        <div carousel-item>
+            <div><a href="#"><img th:src="@{/img/lunbo1.jpg}"/></a></div>
+            <div><a href="#"><img th:src="@{/img/lunbo2.jpg}"/></a></div>
+            <div><a href="#"><img th:src="@{/img/lunbo3.jpg}"/></a></div>
+            <div><a href="#"><img th:src="@{/img/lunbo4.jpg}"/></a></div>
+            <div><a href="#"><img th:src="@{/img/lunbo5.jpg}"/></a></div>
+        </div>
+    </div>
+    <div id="lunbo_leftWrap">
+        <div class="lunbo_leftHeader">
+            <h3>图书列表</h3>
+        </div>
+        <ul>
+            <li>
+                <div class="li_inner">
+                    <h3>编程语言</h3>
+                    <p class="inner_p"><a href="#">Java</a><a href="#">C语言</a><a href="#">C++</a>
+                        <a href="#">Phthon</a><a href="#">Android</a><a href="#">HTML5</a>
+                        <a href="#">C#</a><a href="#">大数据</a><a href="#">BootStrap</a>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="li_inner">
+                    <h3>操作系统</h3>
+                    <p class="inner_p"><a href="#">Windows</a><a href="#">Linux</a><a href="#">Unix</a>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="li_inner">
+                    <h3>数据库</h3>
+                    <p class="inner_p"><a href="#">Oracle</a><a href="#">Mysql</a><a href="#">Access</a>
+                        <a href="#">Spark</a><a href="#">SQL语言</a><a href="#">数据库挖掘</a>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="li_inner">
+                    <h3>办公软件</h3>
+                    <p class="inner_p"><a href="#">Word</a><a href="#">Excel</a><a href="#">PPT</a>
+                        <a href="#">Office</a><a href="#">WPS</a>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="li_inner">
+                    <h3>图形处理/多媒体</h3>
+                    <p class="inner_p"><a href="#">MAYA</a><a href="#">3DMAX</a><a href="#">PhotoShop</a>
+                        <a href="#">Flash</a><a href="#">Illustrator</a><a href="#">平面设计</a>
+                        <a href="#">课件制作</a><a href="#">premiere</a>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--tab栏-->
+<div id="tabAndList">
+    <div class="talleft">
+        <div id="talleft_header">
+            <h3><img th:src="@{/img/tab/f1.jpg}"/><a th:href="@{'javascript:queryByTid(0,1);'}">全部图书</a></h3>
+            <ul>
+                <li th:each="t:${list}">
+                    <a th:href="@{'javascript:queryByTid('+${t.tid}+',1);'}" class="talleft_header_a" th:text="${t.tname}"></a>
+                </li>
+                <!--<li><a href="javascript:;" class="talleft_header_a" style="color: #ca1524;">编程语言</a></li>
+                <li><a href="javascript:;" class="talleft_header_a">操作系统</a></li>
+                <li><a href="javascript:;" class="talleft_header_a">数据库</a></li>
+                <li><a href="javascript:;" class="talleft_header_a">办公软件</a></li>
+                <li><a href="javascript:;" class="talleft_header_a">图形处理/多媒体</a></li>-->
+            </ul>
+        </div>
+
+        <div id="talleft_content">
+            <ul id="firstUl" class="firstUl">
+                <li th:each="bo,status:${map.list}">
+                    <span th:if="${status.index==5}" th:text="${#strings.replace(desc,T(System).getProperty('line.separator'),'&lt;br/&gt;')}"></span>
+                    <a th:href="@{/bookconsumer/showBookDetails(bid=${bo.bid})}">
+                        <img th:src="@{${bo.picPath}}" th:title="${bo.bname}"/></a>
+                    <a th:href="@{/bookconsumer/showBookDetails(bid=${bo.bid})}" class="jianjie" th:text="${bo.bname}"></a>
+                    <h4 th:text="'￥'+${bo.price}"></h4>
+                </li>
+            </ul>
+
+
+            <ul class="secondeUl" id="page">
+                当前页数：<span th:text="${map.page.pageNo}"></span>
+                /共<span th:text="${map.page.pageCount}"></span>页
+                <li class='current'><a th:href="@{javascript:jump(1)}">首页</a></li>
+                <li><a th:href="@{'javascript:jump('+${map.page.pageNo-1}+');'}">上一页</a></li>
+                <li><a th:href="@{'javascript:jump('+${map.page.pageNo+1}+');'}">下一页</a></li>
+                <li><a th:href="@{'javascript:jump('+${map.page.pageCount}+');'}">末页</a></li>
+            </ul>
+
+            <input type="hidden" id="pageNo" th:value="1"/>
+            <input type="hidden" id="tid"/>
+
+        </div>
+    </div>
+    <div class="talright">
+        <h3>
+            <img th:src="@{/img/tab-right/NO1.png}"/>
+            <span>新书排行榜</span>
+        </h3>
+        <ul id="newBookList">
+        </ul>
+    </div>
+</div>
+
+
+<div id="LeftAndRight_header">
+    <h3 id="goodBook"><img th:src="@{/img/bugle.jpg}"/> 好书推荐</h3>
+</div>
+<!--左右动-->
+<div id="LeftAndRight">
+    <a id="turnLeft" href="javascript:;" class="glyphicon glyphicon-chevron-left"></a>
+    <a id="turnRight" href="javascript:;" class="glyphicon glyphicon-chevron-right"></a>
+    <ul style="left: 0px;">
+
+    </ul>
+</div>
+
+<!--右侧导航条-->
+<div id="right_nav">
+    <ul>
+        <div id="liheader"></div>
+        <li><a href="#bc" title="编程语言">编程语言</a></li>
+        <li><a href="#cz" title="操作系统">操作系统</a></li>
+        <li><a href="#sj" title="数据库">数据库</a></li>
+        <li><a href="#bg" title="办公软件">办公软件</a></li>
+        <li><a href="#tx" title="图形处理/多媒体">图形处理/多媒体</a></li>
+        <li><a href="#logo-search" title="回顶部" id="HuiDingBu"></a></li>
+    </ul>
+</div>
+
+<!--纯展示图书  css 194-551  -->
+
+<div id="showBook">
+    <div class="showContent" th:each="t:${list}">
+        <h2 th:text="${t.tname}"></h2>
+        <ul class="firstUl">
+            <li th:each="b:${t.list}">
+                <a th:href="@{/bookconsumer/showBookDetails(bid=${b.bid})}">
+                    <img th:src="@{${b.picPath}}" th:title="${b.bname}"/></a>
+                <a th:href="@{/bookconsumer/showBookDetails(bid=${b.bid})}" class="jianjie" th:text="${b.bname}"></a>
+                <h4 th:text="'￥'+${b.price}"></h4>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<!--引入公共footer-->
+<div th:replace="common.frontend/public :: footer"></div>
+<!--<div th:replace="~{frontend/public :: footer}"></div>-->
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!--layer和layUI同时引入时layer要放上面，否则不管用了-->
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="javascript" th:src="@{/js/js2/homePage.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+<script> var endTime = new Date().getTime();
+          console.log("共花费了:"+(endTime - startTime)+"毫秒");
+</script>
+</html>

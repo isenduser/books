@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cssl.dao.BooksDao">
+    <select id="queryBooks" resultType="books">
+        select * from books limit #{page},#{limit}
+    </select>
+    <update id="updateBook">
+        update books set bname=#{bname},price=#{price},author=#{author},publishName=#{publishName},
+        bookNum=#{bookNum} where bid=#{bid}
+    </update>
+    <insert id="addBooks" keyProperty="bid" keyColumn="bid">
+        insert into books values(null,#{bname},#{bcontent},#{bookPrice},#{price},#{author},
+        #{publishName},#{publishDate},0,#{bookNum},1,#{picPath},#{type.tid})
+    </insert>
+    <delete id="deleteBooks">
+        delete from books where bid=#{bid}
+    </delete>
+</mapper>

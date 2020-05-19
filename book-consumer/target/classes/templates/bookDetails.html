@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>商品详情页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css2/bookDetails.css}"/>
+</head>
+<body>
+<!--公共头部引入-->
+<!--<div th:replace="common/frontend/public :: #header"></div>-->
+<div th:replace="common.frontend/public :: header"></div>
+
+<!--搜索部分-->
+<div id="logo-search"  >
+    <div class="logo">
+        <a th:href="@{/frontSkip/toIndex}"><img th:src="@{/img/logo.png}" alt="欢迎来到6号书店" /></a>
+    </div>
+    <div class="search">
+        <input type="text" id="booksearch" placeholder="在这里输入你想找的书籍吧！"/>
+        <button type="button" onclick="search();">搜索</button>
+    </div>
+</div>
+<!--书的详细介绍区域-->
+<div id="content">
+    <div class="content_position">
+        您现在的位置：<a href="javascript:;">全部分类</a>&nbsp;&nbsp;<span>></span>&nbsp;&nbsp;<a href="javascript:;">全部</a>&nbsp;&nbsp;
+        <span>></span>&nbsp;&nbsp;<a href="javascript:;">[[${book.type.tname}]]</a>
+    </div>
+    <div class="content_details">
+        <!--图片-->
+        <div class="book_img">
+            <img th:src="@{${book.picPath}}" />
+        </div>
+        <input type="hidden" id="bid" th:value="${book.bid}"/>
+        <!--描述-->
+        <div class="details">
+            <h4>[[${book.bname}]]</h4>
+            <ul>
+                <li>作者：<a href="#">[[${book.author}]]</a></li>
+                <li>出版社：<a href="#">[[${book.publishName}]]</a></li>
+                <li>出版日期：<span th:text="${#dates.format(book.publishDate,'yyyy-MM-dd')}" ></span></li>
+                <li>图书简介：<span>[[${book.bcontent}]]</span></li>
+
+                <li>定价：<span>[[${book.bookPrice}]]</span></li>
+            </ul>
+            <div class="price-p-y">
+                <p>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：<span class="price">￥[[${book.price}]]</span>&nbsp;&nbsp;[[${book.dealmount}]]</span></p>
+                <p>配&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送：&nbsp;<span class="peisong">满60元免运费！</span></p>
+                <p>优惠活动：&nbsp;<span class="youhui">送 2500 积分，每 10 点积分可用于支付 0.01 元。 [详细介绍]
+真实库存，24小时内发货！</span></p>
+            </div>
+            <div class="buy_area">
+                <div id="buy_numwrap">
+                    数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：
+                    <div class="buy_num">
+                        <a href="javascript:;" class="glyphicon glyphicon-minus" id="jian" onclick="jianClick()" onmouseover="jianMouseOver()"  disabled="true"></a>
+                        <input type="text"  id="booknumber" name="bookNum" value="1" disabled="disabled"/>
+                        <a href="javascript:;" class="glyphicon glyphicon-plus" id="jia" onclick="jiaClick()"></a>
+                    </div>
+                    <span>库存：<b id="bookStock">[[${book.bookNum}]]</b></span>
+                    <span>销量：<b>[[${book.dealmount}]]</b></span>
+                </div>
+                <p></p>
+                <p>总价格：<span id="zongjiage">￥[[${book.bookPrice}]]</span>
+                    <a id="addToCart" th:if="${session.user!=null}" th:onclick="'javascript:addToCart('+${session.user.cid}+')'" href="javascript:;" class="btn btn-default"></a>
+                    <a id="addToCart1" th:if="${session.user==null}" th:onclick="'javascript:addToCart('+${session.user}+')'" href="javascript:;" class="btn btn-default"></a>
+
+                </p>
+            </div>
+        </div>
+        <!--猜你喜欢-->
+        <div id="guessyoulike">
+            <h2>猜你喜欢</h2>
+        </div>
+        <div class="img_big">
+            <img th:src="@{/img/bookDetailsShow.jpg}"/>
+        </div>
+
+    </div>
+
+</div>
+<!--引入公共footer-->
+<!--<div th:replace="~{common/frontend/public :: footer}"></div>-->
+<div th:replace="common.frontend/public :: footer"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/bookDetails.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+</html>

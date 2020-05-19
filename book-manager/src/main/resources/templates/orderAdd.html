@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>新增订单</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <link rel="stylesheet" href="/bmsys/layui/css/layui.css"  media="all">
+  <script src="/bmsys/layui/layui.js" charset="utf-8"></script>
+  <script src="/bmsys/jquery.1.9.1.min.js" charset="utf-8"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+  </head>
+  
+  <body >
+  <br>
+    <form  id="form" class="layui-form ">
+    <div class="layui-form-item">
+    </div>
+	   <div class="layui-form-item">
+	    <div class="layui-inline" >
+	    <label class="layui-form-label">供应商名</label>
+	    <div class="layui-input-inline" style="width: 150px;">
+		  	<select name="providerId" id="providerId" lay-filter="providerId"  lay-search="">
+	      	</select>
+	    </div>
+	  	</div>
+	  	<div class="layui-inline" >
+	    <label class="layui-form-label">书名</label>
+	    <div class="layui-input-inline" style="width: 150px;" >
+	      <select name="bookId" id="bookId" lay-filter="bookId"  lay-search="">
+	      	</select>
+	    </div>
+	  	</div>
+	  </div>
+	  
+	  <div class="layui-form-item">
+	    <div class="layui-inline" >
+	    <label class="layui-form-label">数量</label>
+	    <div class="layui-input-inline" style="width: 150px;">
+	      <input type="text" name="count" id="count"  class="layui-input">
+	    </div>
+	    </div>
+	    <div class="layui-inline" >
+	    <label class="layui-form-label">销售金额</label>
+	    <div class="layui-input-inline" style="width: 150px;">
+	      <input type="text" name="amount" id="amount"  class="layui-input">
+	    </div>
+	  	</div>
+	  	</div>
+	  	<div class="layui-form-item">
+	  	 <div class="layui-inline" >
+	    <label class="layui-form-label">时间</label>
+	    <div class="layui-input-inline" style="width: 150px;">
+	    <input type="text" name="time" id="time" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+	    </div>
+	  	</div>
+	  </div>
+	 <br>
+	  <div  align="center">
+	  <div class="layui-input-inline" >
+		  <button type="button" class="layui-btn addtest">添加</button>
+		  
+	  </div>
+	  
+	  <div class="layui-input-inline" >
+		  
+		  <input class="layui-btn" type="reset" value="重置">
+	  </div>
+	  </div>
+    </form>
+    <script>
+    function selectProviderList(){
+    	layui.use(['form'],function(){
+    	var form = layui.form;
+    	$.ajax({
+	             type:"POST",
+	             url:"/bmsys/provider/selectProviderList",
+	             dataType : 'json',
+	             success : function(data){
+	            	 //alert(JSON.stringify(data));
+	             	if(data != null){
+	             		if( data.length <= 0 ){
+						//已经加载完毕
+						}else{
+							$("#providerId").empty();//清空下拉框
+	             			$("#providerId").append("<option value=''>请选择</option>");
+							for( var i=0;i<data.length; i++ ){
+								var item = data[i];
+								//alert(item.depaId);
+								//alert(item.name);
+								$("<option value="+ item.providerId +">"+ item.name +"</option>").appendTo("#providerId");
+							}
+							form.render('select');
+						}
+	             	}else{
+	             		alert("加载select失败");
+	             	}
+	             },
+	             error: function(XMLHttpRequest, textStatus, errorThrown) {
+				       alert(XMLHttpRequest.status);//状态码
+				       alert(XMLHttpRequest.readyState);//状态
+				       alert(textStatus);//错误信息
+				 }
+		});
+    	});
+    }
+    
+    function selectBookList(){
+    	layui.use(['form'],function(){
+    	var form = layui.form;
+    	$.ajax({
+	             type:"POST",
+	             url:"/bmsys/book/selectBookList",
+	             dataType : 'json',
+	             success : function(data){
+	            	 //alert(JSON.stringify(data));
+	             	if(data != null){
+	             		if( data.length <= 0 ){
+						//已经加载完毕
+						}else{
+							$("#bookId").empty();//清空下拉框
+	             			$("#bookId").append("<option value=''>请选择</option>");
+							for( var i=0;i<data.length; i++ ){
+								var item = data[i];
+								//alert(item.depaId);
+								//alert(item.name);
+								$("<option value="+ item.bookId +">"+ item.name +"</option>").appendTo("#bookId");
+							}
+							form.render('select');
+						}
+	             	}else{
+	             		alert("加载select失败");
+	             	}
+	             },
+	             error: function(XMLHttpRequest, textStatus, errorThrown) {
+				       alert(XMLHttpRequest.status);//状态码
+				       alert(XMLHttpRequest.readyState);//状态
+				       alert(textStatus);//错误信息
+				 }
+		});
+    	});
+    }
+    
+    $(".addtest").on("click",function(){
+    	layui.use("layer", function() {
+		$.ajax({
+	             type:"POST",
+	             url:"/bmsys/order/orderAddMsg",
+	             data: $("form").serialize(),//表单数据
+	             success : function(data){
+	             	if(data=="success"){
+                     layer.close(layer.index);
+                     window.parent.location.reload();
+                 	}
+	             	
+	             },
+	             error: function(XMLHttpRequest, textStatus, errorThrown) {
+				       alert(XMLHttpRequest.status);//状态码
+				       alert(XMLHttpRequest.readyState);//状态
+				       alert(textStatus);//错误信息
+				 }
+		});
+    	});
+	});
+	
+	layui.use(['laydate','form','table'], function(){
+	  var laydate = layui.laydate;
+	  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+	  var table = layui.table;
+	  //执行一个laydate实例
+		//日期
+	  laydate.render({
+	    elem: '#time'
+	  });
+	  form.render();
+	  selectProviderList();
+	  selectBookList();
+	});
+	
+	</script>
+  </body>
+</html>

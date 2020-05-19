@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>6号书店搜索</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <style>
+        body{
+            height: 3000px;
+            min-width: 1500px;
+        }
+        .clearfix:before,.clearfix:after{
+            content: "";
+            display: table;
+            clear: both;
+        }
+        #header{
+            width: 100%;
+            height: 40px;
+            background-color: #f5f5f5;
+            min-width: 670px;
+        }
+        #header-left{
+            float: left;
+            height: 100%;
+            min-width: 220px;
+            margin-left: 200px;
+        }
+        @media screen and (max-width:870px) {
+            #header-left{
+                margin-left:0px;
+            }
+        }
+        #header-left a ,#header-right a {
+            text-decoration: none;
+            line-height: 40px;
+            font-size: 13px;
+            color: #666;
+            margin-left: 15px;
+        }
+        #header-left a:nth-child(1){
+            color: red;
+        }
+        #header a:hover{
+            color: red;
+        }
+        #header-center{
+            float: left;
+            height: 100%;
+            margin-left: 200px;
+            min-width: 300px;
+            line-height: 40px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        #header-right{
+            float: right;
+            height: 100%;
+            margin-right: 100px;
+            min-width: 300px;
+        }
+        /*logo和搜索部分*/
+        #logo-search{
+            min-width: 100%;
+            height: 120px;
+            margin-top: 40px;
+            position: relative;
+        }
+        .logo{
+            float:left;
+            margin-left: 200px;
+            margin-top: 0px;
+        }
+        .search{
+            float: right;
+            margin-top: 20px;
+            margin-right: 300px;
+        }
+        .search input{
+            width: 450px;
+            height: 38px;
+            color: #999;
+            font-size: 14px;
+            border: 1px solid #c59544;
+            border-width: 2px 0 2px 2px;
+            cursor: text;
+            /*去掉chorm默认边框*/
+            outline: none;
+            padding:4px;
+        }
+        .search button{
+            height: 41px;
+            width: 82px;
+            margin-left: -5px;
+            background:#c59544;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-family: "微软雅黑";
+            outline: none;
+        }
+        /*顶部的滚动字体*/
+        #logo-search .dong{
+            width: 1000px;
+            height: 36px;
+            position: absolute;
+            top: 83px;
+            left: 400px;
+            /*background-color: deeppink;*/
+        }
+        #logo-search .dong span{
+            display: block;
+            width: 70%;
+            height: 100%;
+            margin: 0 auto;
+            line-height: 36px;
+        }
+        #logo-search .dong span:hover{
+            color: red;
+            cursor: pointer;
+        }
+        #showBook .showContent{
+            width: 1300px;
+            height: 100%;
+            margin: 0 auto;
+            padding: 5px 10px;
+        }
+        #showBook .showContent ul li:hover{
+            box-shadow: gray 0px 0px 20px;
+            transform:scale(1.02);
+        }
+        #showBook .showContent ul li a{
+            font: 14px "微软雅黑";
+            color: #666666;
+            text-decoration: none;
+        }
+        #showBook .showContent ul .jianjie{
+            display: inline-block;
+            width: 150px;
+            height: 35px;
+            font: 14px/35px "微软雅黑";
+            color: #666666;
+            text-decoration: none;
+            margin-top: 4px;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #showBook .showContent ul .jianjie:hover{
+            color: #ee6157;
+        }
+        #showBook .showContent ul img{
+            display: block;
+            width: 100%;
+            height: 200px;
+            margin: 0 auto;
+        }
+        #showBook .showContent ul h4{
+            font: 900 18px "微软雅黑";
+            color: red;
+            margin-top: 6px;
+        }
+        #showBook .showContent ul {
+            width: 1200px;
+        }
+        #showBook .showContent ul li {
+            display: inline-table;
+            width: 190px;
+            height: 100%;
+            margin: 10px 10px;
+            flex: 1;
+            text-align: center;
+            background-color: white;
+            transition: 0.3s;
+        }
+        #index_footer{
+            width: 100%;
+            height:340px;
+        }
+        #footer_help{
+            width: 1200px;
+            height: 160px;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+        #footer_help div{
+            display: inline-block;
+            width: 300px;
+            height: 100px;
+            float: left;
+        }
+
+        #index_footer #divul{
+            width: 1200px;
+            height: 140px;
+            margin: 15px auto;
+        }
+        #index_footer #divul ul{
+            width: 800px;
+            height: 50px;
+            display: block;
+            margin: 0 auto;
+            line-height: 50px;
+        }
+
+        #index_footer #divul li{
+            font-size: 14px;
+            float: left;
+            margin-left: 20px;
+            color:gray ;
+        }
+        #index_footer #divul a{
+            text-decoration: none;
+            color: gray;
+        }
+        #index_footer #divul a:hover{
+            color: red;
+            text-decoration: underline;
+        }
+        #index_footer #divul p{
+            margin: 10px auto;
+            color: gray;
+            text-align: center;
+        }
+        #footer_help h4{
+            font: 600 16px "微软雅黑";
+            margin-bottom: 10px;
+        }
+        #footer_help ul li{
+            float: left;
+            width: 140px;
+            height: 25px;
+        }
+        #footer_help ul li a{
+            color: gray;
+        }
+        #footer_help ul li a:hover{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+<!--公共头部引入-->
+<div th:replace="common.frontend/public :: header"></div>
+<!--搜索部分-->
+<!--<span th:text="${session.user.cname}"></span>-->
+<div id="logo-search"  >
+    <div class="logo">
+        <a><img th:src="@{/img/logo.png}" alt="欢迎来到6号书店" /></a>
+    </div>
+    <div class="search">
+        <input type="text" id="booksearch" th:value="${name}" placeholder="在这里输入你想找的书籍吧！"/>
+        <button type="button" onclick="search();">搜索</button>
+    </div>
+    <div class="dong">
+      		<span>
+      			<marquee onmouseover=this.stop() onmouseout=this.start() scrollamount=5 behavior="scroll">
+				依据《网络安全法》，为保障您的账户安全和正常使用，请尽快完成手机号验证！
+				新版《六号隐私政策》已上线，将更有利于保护您的个人隐私。
+				</marquee>
+      		</span>
+    </div>
+
+</div>
+<div id="showBook">
+    <div class="showContent">
+        <p  th:if="${#lists.isEmpty(list)}">
+            不好意思，暂时没有你想找的书籍哦！&nbsp;&nbsp;
+            <a href="/bookconsumer/queryBook" >点击回到首页</a>
+        </p>
+        <ul class="firstUl">
+            <li th:each="b:${list}">
+                <a th:href="@{/bookconsumer/showBookDetails(bid=${b.bid})}">
+                    <img th:src="@{${b.picPath}}" th:title="${b.bname}"/></a>
+                <a th:href="@{/bookconsumer/showBookDetails(bid=${b.bid})}" class="jianjie" th:text="${b.bname}"></a>
+                <h4 th:text="'￥'+${b.price}"></h4>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--引入公共footer-->
+<div th:replace="common.frontend/public :: footer"></div>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+<!--layer和layUI同时引入时layer要放上面，否则不管用了-->
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/js/js2/search.js}"></script>
+</body>
+</html>
