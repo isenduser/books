@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Books> searchByName(String name) {
-        String bname="%"+name+"%";
+        String bname = "%" + name + "%";
         return bookDao.searchByName(bname);
     }
 

@@ -46,7 +46,7 @@ public class AlipayController {
 
         //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = order.getOrderId();
-        System.out.println("支付宝支付"+ order.getOrderId()+":"+order.getTotalprice());
+        System.out.println("支付宝支付" + order.getOrderId() + ":" + order.getTotalprice());
         //付款金额，必填
         String total_amount = order.getTotalprice() + "";
         //订单名称，必填
@@ -65,7 +65,7 @@ public class AlipayController {
 
         //请求
         String result = alipayClient.pageExecute(alipayRequest).getBody();
-        System.out.println("result:"+result);
+        System.out.println("result:" + result);
 
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();

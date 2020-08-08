@@ -14,12 +14,12 @@ public class BookMessage {
     private BookDao bookDao;
 
     @JmsListener(destination = "book")
-    public void receive(List<OrderDetail>list){
-       for(OrderDetail orderDetail:list){
-           Integer bid=orderDetail.getBooks().getBid();
-           Integer count=orderDetail.getAmount();
-           bookDao.updateBookNum(bid,count);
-       }
-       System.out.println("修改库存成功");
+    public void receive(List<OrderDetail> list) {
+        for (OrderDetail orderDetail : list) {
+            Integer bid = orderDetail.getBooks().getBid();
+            Integer count = orderDetail.getAmount();
+            bookDao.updateBookNum(bid, count);
+        }
+        System.out.println("修改库存成功");
     }
 }

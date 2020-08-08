@@ -9,18 +9,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-@FeignClient(name="book-provider")
+@FeignClient(name = "book-provider")
 public interface BookClient {
     @RequestMapping("/bookprovider/queryBook")
     public List<Type> queryBook();
+
     @RequestMapping("/bookprovider/queryByType")
-    public Map<String,Object> queryByType(@RequestParam Map<String, Object> map);
+    public Map<String, Object> queryByType(@RequestParam Map<String, Object> map);
+
     @RequestMapping("/bookprovider/queryById")
     public Books queryById(@RequestParam Integer bid);
+
     @RequestMapping("/bookprovider/getGood")
     public List<Books> getGood();
+
     @RequestMapping("/bookprovider/getNewBookList")
     public List<Books> getNewBookList();
+
     /*@RequestMapping("/bookprovider/solrsearch")
     public List<Books> search(@RequestParam String name);*/
     @RequestMapping("/bookprovider/searchByName")

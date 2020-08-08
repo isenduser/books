@@ -20,23 +20,24 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersDao ordersDao;
     @Autowired
     private ShopDao shopDao;
+
     @Override
     public int insertOrders(Orders orders) {
-        List<OrderDetail> list=orders.getList();
-        int count=ordersDao.insertOrders(orders);//下订单
-        List<Integer> shopNos=new ArrayList<>();//购物车中的书编号集合
-        for (OrderDetail orderDetail:list) {
+        List<OrderDetail> list = orders.getList();
+        int count = ordersDao.insertOrders(orders);//下订单
+        List<Integer> shopNos = new ArrayList<>();//购物车中的书编号集合
+        for (OrderDetail orderDetail : list) {
             shopNos.add(orderDetail.getBooks().getBid());
             orderDetail.setOid(orders.getOid());
             ordersDao.insertOrderDetail(orderDetail);//插入详细订单信息
         }
-        shopDao.deleteByBookNos(orders.getCustomer().getCid(),shopNos);//将已下订单的书从购物车中删除
+        shopDao.deleteByBookNos(orders.getCustomer().getCid(), shopNos);//将已下订单的书从购物车中删除
         return count;
     }
 
     @Override
-    public List<Orders> queryOrders(Integer cid,Integer page,Integer limit) {
-        return ordersDao.queryOrders(cid,page,limit);
+    public List<Orders> queryOrders(Integer cid, Integer page, Integer limit) {
+        return ordersDao.queryOrders(cid, page, limit);
     }
 
     @Override

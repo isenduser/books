@@ -32,34 +32,35 @@ public class BookController {
 
     @RequestMapping("/queryBooks")
     @ResponseBody
-    public Map<String,Object> queryBooks(Integer page,Integer limit){
+    public Map<String, Object> queryBooks(Integer page, Integer limit) {
 
-        Map<String,Object> map=new HashMap<>();
-        List<Books> list=booksService.queryBooks((page-1)*limit,limit);
-        Integer count=booksService.queryCount();
-        map.put("data",list);
-        map.put("count",count);
-        map.put("msg","查询成功");
-        map.put("code",0);
+        Map<String, Object> map = new HashMap<>();
+        List<Books> list = booksService.queryBooks((page - 1) * limit, limit);
+        Integer count = booksService.queryCount();
+        map.put("data", list);
+        map.put("count", count);
+        map.put("msg", "查询成功");
+        map.put("code", 0);
         return map;
     }
 
     /**
      * 查询所有客户
+     *
      * @param page
      * @param limit
      * @return
      */
     @RequestMapping("/queryCustomer")
     @ResponseBody
-    public Map<String,Object> queryCustomer(Integer page,Integer limit){
-        Map<String,Object> map=new HashMap<>();
-        List<Customer> list=customerService.queryCustomer((page-1)*limit, limit);
-        Integer count=customerService.queryCount();
-        map.put("data",list);
-        map.put("count",count);
-        map.put("msg","查询成功");
-        map.put("code",0);
+    public Map<String, Object> queryCustomer(Integer page, Integer limit) {
+        Map<String, Object> map = new HashMap<>();
+        List<Customer> list = customerService.queryCustomer((page - 1) * limit, limit);
+        Integer count = customerService.queryCount();
+        map.put("data", list);
+        map.put("count", count);
+        map.put("msg", "查询成功");
+        map.put("code", 0);
         return map;
     }
 
@@ -68,24 +69,25 @@ public class BookController {
      */
     @RequestMapping("/queryOrders")
     @ResponseBody
-    public Map<String,Object> queryOrders(Integer page,Integer limit){
-        Map<String,Object> map=new HashMap<>();
-        List<Orders> list=ordersService.queryOrders((page-1)*limit, limit);
-        Integer count=ordersService.queryCount();
-        map.put("data",list);
-        map.put("count",count);
-        map.put("msg","查询成功");
-        map.put("code",0);
+    public Map<String, Object> queryOrders(Integer page, Integer limit) {
+        Map<String, Object> map = new HashMap<>();
+        List<Orders> list = ordersService.queryOrders((page - 1) * limit, limit);
+        Integer count = ordersService.queryCount();
+        map.put("data", list);
+        map.put("count", count);
+        map.put("msg", "查询成功");
+        map.put("code", 0);
         return map;
     }
+
     /**
      * 图书修改
      */
     @RequestMapping("/bookupdate")
     @ResponseBody
-    public String bookupdate( Books books){
+    public String bookupdate(Books books) {
         System.out.println(books.toString());
-        int count=booksService.updateBook(books);
+        int count = booksService.updateBook(books);
         return "success";
     }
 
@@ -94,9 +96,9 @@ public class BookController {
      */
     @RequestMapping("/customerupdate")
     @ResponseBody
-    public String customerupdate(Customer customer){
+    public String customerupdate(Customer customer) {
         System.out.println(customer.toString());
-        int count=customerService.updateCustomer(customer);
+        int count = customerService.updateCustomer(customer);
         return "success";
     }
 
@@ -105,10 +107,10 @@ public class BookController {
      */
     @RequestMapping("customerinsert")
     @ResponseBody
-    public String customerInsert(Customer customer){
+    public String customerInsert(Customer customer) {
         System.out.println(customer.toString());
         customer.setRegtime(new Date());
-        int count=customerService.insertCustomer(customer);
+        int count = customerService.insertCustomer(customer);
         return "success";
     }
 
@@ -117,8 +119,8 @@ public class BookController {
      */
     @RequestMapping("/getType")
     @ResponseBody
-    public List<Type> getType(){
-        List<Type> type=typeService.queryAllType();
+    public List<Type> getType() {
+        List<Type> type = typeService.queryAllType();
         return type;
     }
 
@@ -139,14 +141,14 @@ public class BookController {
     @RequestMapping("/upload")
     @ResponseBody
     public Map<String, Object> upload(MultipartFile file) throws IOException {
-        System.out.println("up:"+file);
+        System.out.println("up:" + file);
         byte[] imgBytes = file.getBytes();
         String imgUrl = Qiniu.upLoadImage(imgBytes);
-        System.out.println("imgUrl:"+imgUrl);
-        Map<String,Object> map=new HashMap<>();
-        map.put("data",imgUrl);
-        map.put("code",0);
-        map.put("msg","mag");
+        System.out.println("imgUrl:" + imgUrl);
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", imgUrl);
+        map.put("code", 0);
+        map.put("msg", "mag");
         return map;
 
     }
@@ -156,7 +158,7 @@ public class BookController {
      */
     @RequestMapping("/customerDelete")
     @ResponseBody
-    public String customerDelete(@RequestBody  Customer customer){
+    public String customerDelete(@RequestBody Customer customer) {
         System.out.println(customer.toString());
         customerService.deleteCustomerById(customer.getCid());
         return "success";
@@ -167,7 +169,7 @@ public class BookController {
      */
     @RequestMapping("/bookDelete")
     @ResponseBody
-    public String bookDelete(@RequestBody Books books){
+    public String bookDelete(@RequestBody Books books) {
         System.out.println(books.toString());
         booksService.deleteBooksById(books.getBid());
         return "success";
@@ -177,9 +179,9 @@ public class BookController {
      * 修改订单状态
      */
     @RequestMapping("/orderupdate")
-    public String orderupdate(String orderId){
-        String status="已发货";
-        int count=ordersService.updateOrder(orderId,status);
+    public String orderupdate(String orderId) {
+        String status = "已发货";
+        int count = ordersService.updateOrder(orderId, status);
         return "orderList";
     }
 
@@ -189,7 +191,7 @@ public class BookController {
      */
     @RequestMapping("/queryOrderDetails")
     @ResponseBody
-    public List<OrderDetail> queryOrderDetails(Integer oid){
+    public List<OrderDetail> queryOrderDetails(Integer oid) {
         return ordersService.queryOrderDetails(oid);
     }
 }

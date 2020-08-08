@@ -11,8 +11,9 @@ import java.util.List;
 public class MessageOrderServiceImpl implements IMessageOrderService {
     @Autowired
     private JmsMessagingTemplate jmsTemplate;
+
     @Override
     public void sendToBook(List<OrderDetail> list) {
-        this.jmsTemplate.convertAndSend("book",list);
+        this.jmsTemplate.convertAndSend("book", list);
     }
 }

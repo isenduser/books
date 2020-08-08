@@ -20,10 +20,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer queryByUsernameAndPassword(String cname, String cpassword) {
-        Customer customer=null;
-        Customer c1=customerDao.queryByName(cname);
-        if(c1!=null){
-            if(c1.getCpassword().equals(cpassword)){
+        Customer customer = null;
+        Customer c1 = customerDao.queryByName(cname);
+        if (c1 != null) {
+            if (c1.getCpassword().equals(cpassword)) {
                 return c1;
             }
         }
@@ -32,8 +32,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int insert(Customer customer) {
-        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        Date date=new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
         dateFormat.format(date);
         customer.setRegtime(date);
         return customerDao.insert(customer);

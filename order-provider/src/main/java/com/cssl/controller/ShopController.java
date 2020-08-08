@@ -29,25 +29,27 @@ public class ShopController {
 
     /**
      * 添加购物车
+     *
      * @param shop
      * @return
      */
     @RequestMapping("/addShop")
-    public List<Shop> add(@RequestBody Shop shop){
-        List<Shop> list=new ArrayList<>();
-        if(shopService.add(shop)>0){
-            list=shopService.queryAllShop(shop.getCid());
+    public List<Shop> add(@RequestBody Shop shop) {
+        List<Shop> list = new ArrayList<>();
+        if (shopService.add(shop) > 0) {
+            list = shopService.queryAllShop(shop.getCid());
         }
         return list;
     }
 
     /**
      * 获取购物车数量
+     *
      * @param cid
      * @return
      */
     @RequestMapping("/getCartBookrows")
-    public Integer getCartBookrows(Integer cid){
+    public Integer getCartBookrows(Integer cid) {
         return shopService.queryBookCount(cid);
     }
 
@@ -55,7 +57,7 @@ public class ShopController {
      * 获取购物车信息
      */
     @RequestMapping("/getCartBook")
-    public List<Shop> getCartBook(Integer cid){
+    public List<Shop> getCartBook(Integer cid) {
         return shopService.queryAllShop(cid);
     }
 
@@ -63,7 +65,7 @@ public class ShopController {
      * 清空购物车
      */
     @RequestMapping("/cleanCart")
-    public int cleanCart(Integer cid){
+    public int cleanCart(Integer cid) {
         return shopService.deleteShop(cid);
     }
 
@@ -71,17 +73,18 @@ public class ShopController {
      * 删除单本书
      */
     @RequestMapping("/deleteByBookNo")
-    public String deleteByBookNo(Integer cid,Integer bid){
-        if(shopService.deleteByBookNo(cid, bid)>0)
+    public String deleteByBookNo(Integer cid, Integer bid) {
+        if (shopService.deleteByBookNo(cid, bid) > 0)
             return "true";
         return "false";
     }
+
     /**
      * 删除多本书
      */
     @RequestMapping("/deleteByBookNos")
-    public String deleteByBookNos(Integer cid,@RequestParam List<Integer>list){
-        if(shopService.deleteByBookNos(cid, list)>0)
+    public String deleteByBookNos(Integer cid, @RequestParam List<Integer> list) {
+        if (shopService.deleteByBookNos(cid, list) > 0)
             return "true";
         return "false";
     }
@@ -90,8 +93,8 @@ public class ShopController {
      * 提交订单
      */
     @RequestMapping("/submitOrder")
-    public String submitOrder(@RequestBody Orders orders){
-        if(ordersService.insertOrders(orders)>0){
+    public String submitOrder(@RequestBody Orders orders) {
+        if (ordersService.insertOrders(orders) > 0) {
             messageOrderService.sendToBook(orders.getList());
             return "true";
         }
@@ -102,15 +105,15 @@ public class ShopController {
      * 查询用户下的订单
      */
     @RequestMapping("/queryOrders")
-    public List<Orders> queryOrders(Integer cid,Integer page,Integer limit){
-        return ordersService.queryOrders(cid,page,limit);
+    public List<Orders> queryOrders(Integer cid, Integer page, Integer limit) {
+        return ordersService.queryOrders(cid, page, limit);
     }
 
     /**
      * 查询用户订单下的记录数
      */
     @RequestMapping("/queryOrdersCount")
-    public int queryOrdersCount(Integer cid){
+    public int queryOrdersCount(Integer cid) {
         return ordersService.queryOrdersCount(cid);
     }
 
@@ -118,7 +121,7 @@ public class ShopController {
      * 查询订单编号对应的详细订单信息
      */
     @RequestMapping("/queryOrderDetail")
-    public List<OrderDetail> queryOrderDetail(Integer oid){
+    public List<OrderDetail> queryOrderDetail(Integer oid) {
         return ordersService.queryOrderDetail(oid);
     }
 
@@ -126,7 +129,7 @@ public class ShopController {
      * 修改订单状态
      */
     @RequestMapping("/updateOrdersStatus")
-    public int updateOrdersStatus(String oid){
+    public int updateOrdersStatus(String oid) {
         return ordersService.updateStatus(oid);
     }
 
@@ -134,7 +137,7 @@ public class ShopController {
      * 确认收货
      */
     @RequestMapping("/shouhuo")
-    public int shouhuo(Integer oid){
+    public int shouhuo(Integer oid) {
         return ordersService.shouhuo(oid);
     }
 }

@@ -19,30 +19,33 @@ public class SystemController {
      * 登录
      */
     @RequestMapping("/login")
-    public String login(String username, String password, HttpSession session){
-        Users users=usersService.queryByUsernameAndPassword(username, password);
-        if(users==null){
+    public String login(String username, String password, HttpSession session) {
+        Users users = usersService.queryByUsernameAndPassword(username, password);
+        if (users == null) {
             return "redirect:/login.html";
         }
-        session.setAttribute("users",users);
+        session.setAttribute("users", users);
         System.out.println(users.toString());
         return "index";
     }
+
     /**
      * 跳转到首页
+     *
      * @return
      */
     @RequestMapping("/index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     /**
      * 加载welcome 页面
+     *
      * @return
      */
     @RequestMapping("/bookList")
-    public String welcome(){
+    public String welcome() {
         return "bookList";
     }
 
@@ -51,7 +54,7 @@ public class SystemController {
      * 加载customerList页面
      */
     @RequestMapping("/customerList")
-    public String customerList(){
+    public String customerList() {
         return "customerList";
     }
 
@@ -59,14 +62,15 @@ public class SystemController {
      * 加载orderList页面
      */
     @RequestMapping("/orderList")
-    public String orderList(){
+    public String orderList() {
         return "orderList";
     }
+
     /**
      * bookModify
      */
     @RequestMapping("/bookModify")
-    public String bookModify(){
+    public String bookModify() {
         return "bookModify";
     }
 
@@ -74,7 +78,7 @@ public class SystemController {
      * customerModify
      */
     @RequestMapping("/customerModify")
-    public String customerModify(){
+    public String customerModify() {
         return "customerModify";
     }
 
@@ -82,12 +86,12 @@ public class SystemController {
      * customerAdd
      */
     @RequestMapping("/customerAdd")
-    public String customerAdd(){
+    public String customerAdd() {
         return "customerAdd";
     }
 
     @RequestMapping("/bookAdd")
-    public String bookAdd(){
+    public String bookAdd() {
         return "bookAdd";
     }
 

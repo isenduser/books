@@ -15,10 +15,11 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
+
     @Override
     public int add(Shop shop) {
-        Shop shop1=shopDao.queryBid(shop.getBid(),shop.getCid());
-        if(shop1==null){
+        Shop shop1 = shopDao.queryBid(shop.getBid(), shop.getCid());
+        if (shop1 == null) {
             return shopDao.insert(shop);
         }
         return shopDao.updateByBid(shop);
